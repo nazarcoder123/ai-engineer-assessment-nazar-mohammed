@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Engineer Chatbot | Dual-Source Intelligence</title>
+  <meta name="description" content="Production-ready FastAPI Chatbot with intelligent query routing across Superhero API and Mythology Text Dataset, powered by hosted LLM with explicit source attribution.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="background-glow">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <div class="app-layout">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Nexus AI Chatbot</h1>
+          <span class="version-tag">FastAPI Assessment v2.2</span>
+        </div>
+      </div>
+
+      <div class="header-badges">
+        <div class="status-pill" id="healthPill">
+          <span class="status-dot"></span>
+          <span class="status-text" id="healthStatusText">Checking API...</span>
+        </div>
+        <a href="/docs" target="_blank" class="docs-link" id="apiDocsBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          Swagger Docs
+        </a>
+      </div>
+    </header>
+
+    <!-- Source Legend Cards -->
+    <div class="sources-strip">
+      <div class="source-card source-dataset">
+        <div class="source-icon">📜</div>
+        <div class="source-info">
+          <h4>Source A: Text Dataset</h4>
+          <p>Curated Ancient Mythology & Legends (Norse, Greek, Egyptian, Mesopotamian)</p>
+        </div>
+      </div>
+      <div class="source-divider">
+        <span class="route-symbol">⮂ ✦ ⮃</span>
+      </div>
+      <div class="source-card source-superhero">
+        <div class="source-icon">⚡</div>
+        <div class="source-info">
+          <h4>Source B: Superhero API</h4>
+          <p>Live Comic Database (Powerstats, Alter-Egos, Biographies, Affiliations)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Messages Window -->
+    <main class="chat-container" id="chatContainer">
+      <div class="message-bubble bot-message welcome-bubble">
+        <div class="message-header">
+          <span class="bot-badge">System Ready</span>
+          <span class="timestamp">POST /ask Endpoint Active</span>
+        </div>
+        <div class="message-body">
+          <p><strong>Welcome to the AI Engineer Chatbot.</strong></p>
+          <p>I automatically analyze your question, determine whether to consult the <strong>Text Dataset</strong>, the live <strong>Superhero API</strong>, or <strong>Both</strong>, and synthesize an accurate answer with complete source attribution.</p>
+          
+          <div class="quick-prompts">
+            <span class="prompt-hint">Try clicking a sample question:</span>
+            <div class="chips-container">
+              <button class="chip" data-question="Compare Superman to Hercules in terms of physical strength, origins, and legendary feats.">
+                ⚔️ Superman vs Hercules (Both)
+              </button>
+              <button class="chip" data-question="What are Batman's powerstats, alter ego, and first appearance according to the Superhero API?">
+                🦇 Batman Stats (Superhero)
+              </button>
+              <button class="chip" data-question="What were the Twelve Labours of Heracles and how did he slay the Hydra?">
+                🦁 Hercules' 12 Labours (Dataset)
+              </button>
+              <button class="chip" data-question="Compare Marvel's Thor with the mythological Norse Thor in terms of appearance, hammer, and lore.">
+                ⚡ Marvel Thor vs Norse Thor (Both)
+              </button>
+              <button class="chip" data-question="Who is Anubis and what was his role in the Egyptian Weighing of the Heart?">
+                ⚖️ Anubis & Weighing of Heart (Dataset)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Chat Input Form -->
+    <footer class="input-container">
+      <form id="askForm" class="ask-form">
+        <div class="input-wrapper">
+          <textarea
+            id="questionInput"
+            placeholder="Ask a question about superheroes, ancient legends, or compare both..."
+            rows="1"
+            required
+            maxlength="1000"
+          ></textarea>
+          <button type="submit" id="sendBtn" class="send-button" aria-label="Send question">
+            <svg id="sendIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <div id="loadingSpinner" class="spinner hidden"></div>
+          </button>
+        </div>
+      </form>
+      <div class="input-hint">
+        <span>Endpoint: <code>POST /ask</code></span>
+        <span>•</span>
+        <span>Hosted LLM Synthesis</span>
+        <span>•</span>
+        <span>Strict Source Attribution</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
